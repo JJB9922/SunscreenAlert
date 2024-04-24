@@ -6,7 +6,7 @@
 
 #include "driver/gpio.h"
 
-#define KEYPAD_1 GPIO_NUM_15
+#define BTN GPIO_NUM_15
 #define LIGHT GPIO_NUM_5
 
 extern "C" {
@@ -18,8 +18,8 @@ void app_main()
     nvs_flash_init();
     wifi_init();
 
-    esp_rom_gpio_pad_select_gpio(KEYPAD_1);
-    gpio_set_direction(KEYPAD_1, GPIO_MODE_INPUT);
+    esp_rom_gpio_pad_select_gpio(BTN);
+    gpio_set_direction(BTN, GPIO_MODE_INPUT);
 
     esp_rom_gpio_pad_select_gpio(LIGHT);
     gpio_set_direction(LIGHT, GPIO_MODE_OUTPUT);
@@ -28,7 +28,7 @@ void app_main()
     int flashes = 10;
 
     while (true) {
-        int button_state = gpio_get_level(KEYPAD_1);
+        int button_state = gpio_get_level(BTN);
 
         if(button_state == 0) {
             printf("Button is pressed\n");
