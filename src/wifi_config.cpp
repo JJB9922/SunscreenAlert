@@ -34,7 +34,6 @@ void wifi_init(){
     esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL);
     esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL);
 
-    //Edited the library a bit so this is 16 and 16 ssid and pass
     wifi_config_t wifi_config;
 
     strcpy((char*)wifi_config.sta.ssid, WIFI_SSID);
