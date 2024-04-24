@@ -1,6 +1,9 @@
 #include "wifi_config.h"
+#include "fetch_uv_index.h"
 
 #include "esp_system.h"
+#include "nvs_flash.h"
+
 #include "driver/gpio.h"
 
 #define KEYPAD_1 GPIO_NUM_15
@@ -12,7 +15,8 @@ extern "C" {
 
 void app_main()
 {
-    //wifi_init();
+    nvs_flash_init();
+    wifi_init();
 
     esp_rom_gpio_pad_select_gpio(KEYPAD_1);
     gpio_set_direction(KEYPAD_1, GPIO_MODE_INPUT);
@@ -20,7 +24,6 @@ void app_main()
     esp_rom_gpio_pad_select_gpio(LIGHT);
     gpio_set_direction(LIGHT, GPIO_MODE_OUTPUT);
 
-    bool led_state = false;
     bool dummyUVBad = true;
     int flashes = 10;
 
@@ -29,6 +32,7 @@ void app_main()
 
         if(button_state == 0) {
             printf("Button is pressed\n");
+            fetch_uv_index();
             
             if(dummyUVBad == false){
                 gpio_set_level(LIGHT, 1);

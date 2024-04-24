@@ -46,6 +46,6 @@ void wifi_init(){
     esp_wifi_connect();
     printf("wifi_init_softap finished. SSID:%s\n\n", WIFI_SSID);
 
-    esp_wifi_stop();
-    esp_wifi_deinit();
+    //esp_wifi_stop();
+    //esp_wifi_deinit();
 }
