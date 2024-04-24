@@ -1,7 +1,7 @@
 #include "wifi_config.h"
 #include "secrets.h"
 
-int retry_num=2;
+int retry_num=0;
 
 void wifi_event_handler(void *event_handler_arg, esp_event_base_t event_base, int32_t event_id,void *event_data){
     if(event_id == WIFI_EVENT_STA_START)
@@ -34,29 +34,19 @@ void wifi_init(){
     esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, &wifi_event_handler, NULL);
     esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &wifi_event_handler, NULL);
 
-    wifi_config_t wifi_config = {
-        .sta = {
-            .ssid = "",
-            .password = ""
-        }
-    };
+    //Edited the library a bit so this is 16 and 16 ssid and pass
+    wifi_config_t wifi_config;
 
-    wifi_secrets secrets;
-    strcpy((char*)wifi_config.sta.ssid, secrets.WIFI_SSID);
-    strcpy((char*)wifi_config.sta.password, secrets.WIFI_PASS);
+    strcpy((char*)wifi_config.sta.ssid, WIFI_SSID);
+    strcpy((char*)wifi_config.sta.password, WIFI_PASS);
 
     esp_wifi_set_config((wifi_interface_t)ESP_IF_WIFI_STA, &wifi_config);
     esp_wifi_start();
     esp_wifi_set_mode(WIFI_MODE_STA);
 
     esp_wifi_connect();
-    printf( "wifi_init_softap finished. SSID:%s", secrets.WIFI_SSID);
+    printf("wifi_init_softap finished. SSID:%s\n\n", WIFI_SSID);
 
-    wifi_ap_record_t ap_info;
-    esp_wifi_sta_get_ap_info(&ap_info);
-
-    printf("Connected to %s\n", ap_info.ssid);
-
-    // esp_wifi_stop();
-    // esp_wifi_deinit();
+    esp_wifi_stop();
+    esp_wifi_deinit();
 }
