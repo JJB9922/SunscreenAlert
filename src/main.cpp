@@ -13,6 +13,14 @@ extern "C" {
     void app_main(void);
 }
 
+bool check_uv(){
+    if(fetch_uv_index() > 3.0){
+        return true;
+    } else {
+        return false;
+    }
+}
+
 void app_main()
 {
     nvs_flash_init();
@@ -24,17 +32,18 @@ void app_main()
     esp_rom_gpio_pad_select_gpio(LIGHT);
     gpio_set_direction(LIGHT, GPIO_MODE_OUTPUT);
 
-    bool dummyUVBad = true;
     int flashes = 10;
+    bool badUV = false;
 
     while (true) {
         int button_state = gpio_get_level(BTN);
 
         if(button_state == 0) {
             printf("Button is pressed\n");
-            fetch_uv_index();
+            badUV = check_uv();
             
-            if(dummyUVBad == false){
+            // If the UV index is nothing to worry about, flash the light 10 times
+            if(badUV == false){
                 gpio_set_level(LIGHT, 1);
                 for(int i = 0; i < flashes; i++){
                     vTaskDelay(500 / portTICK_PERIOD_MS);
@@ -43,7 +52,7 @@ void app_main()
                     gpio_set_level(LIGHT, 1);
                 }
                 gpio_set_level(LIGHT, 0);
-            } else if (dummyUVBad == true){
+            } else if (badUV == true){
                 gpio_set_level(LIGHT, 1);
                 vTaskDelay(10000 / portTICK_PERIOD_MS);
                 gpio_set_level(LIGHT, 0);

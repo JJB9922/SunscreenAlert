@@ -48,13 +48,13 @@ esp_err_t http_event_handler(esp_http_client_event_t *evt)
     return ESP_OK;
 }
 
-void process_response(char *buffer, size_t length) {
+double process_response(char *buffer, size_t length) {
     buffer[length] = '\0';
 
     cJSON *root = cJSON_Parse(buffer);
     if (!root) {
         printf("Error: Failed to parse JSON\n");
-        return;
+        return 0.0;
     }
 
     cJSON *result = cJSON_GetObjectItem(root, "result");
@@ -62,6 +62,8 @@ void process_response(char *buffer, size_t length) {
         cJSON *uv_max = cJSON_GetObjectItem(result, "uv_max");
         if (uv_max) {
             printf("Max UV: %.4f\n", uv_max->valuedouble);
+            cJSON_Delete(root);
+            return(uv_max->valuedouble);
         } else {
             printf("UV max not found in JSON response.\n");
         }
@@ -70,9 +72,10 @@ void process_response(char *buffer, size_t length) {
     }
 
     cJSON_Delete(root);
+    return 0.0;
 }
 
-void fetch_uv_index()
+double fetch_uv_index()
 {
     esp_http_client_config_t config = {
         .url = WEATHER_API_ENDPOINT,
@@ -84,9 +87,13 @@ void fetch_uv_index()
     esp_http_client_set_header(client, "x-access-token", "openuv-3x66prlvinbd3p-io");
     esp_err_t err = esp_http_client_perform(client);
 
+    double uv_index = 0;
+
     if (err == ESP_OK)
     {
-        process_response(response_buffer, response_length);
+        uv_index = process_response(response_buffer, response_length);
+        esp_http_client_cleanup(client);
+        return uv_index;
     }
     else
     {
@@ -94,4 +101,5 @@ void fetch_uv_index()
     }
 
     esp_http_client_cleanup(client);
+    return 0.0;
 }
