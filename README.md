@@ -20,12 +20,16 @@ Done:
 - Button controls LED animation
   
 - ESP32 connects to wifi
-  
-- ESP32 makes api connection to openweatherapi
-  
+![image](https://github.com/JJB9922/SunscreenAlert/assets/105116192/1f4451a3-7ef3-404b-b0fa-cde4c90b9f64)
 
-Needs 2 be done:
+- ESP32 makes api connection to openweatherapi
+![image](https://github.com/JJB9922/SunscreenAlert/assets/105116192/1b5af5a8-e10d-435a-8b70-199d76177fdb)
+
 
 - Parse JSON data to find UV index for today
+![image](https://github.com/JJB9922/SunscreenAlert/assets/105116192/485b91eb-e586-4be5-bbd8-326f19e841d6)
+
+
+Needs 2 be done:
   
 - Correspond animation with UV index reading
