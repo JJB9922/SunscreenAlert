@@ -29,7 +29,20 @@ Done:
 - Parse JSON data to find UV index for today
 ![image](https://github.com/JJB9922/SunscreenAlert/assets/105116192/485b91eb-e586-4be5-bbd8-326f19e841d6)
 
-
-Needs 2 be done:
   
 - Correspond animation with UV index reading
+
+![image](https://github.com/JJB9922/SunscreenAlert/assets/105116192/47b50151-f544-4628-bafe-9ebb2f192233)
+
+
+### RETRO
+
+
+Noticed towards the end that all the sites report UV Index wildly different - probably a useless project in that case!
+
+
+### Libs used / dependencies:
+
+
+https://github.com/DaveGamble/cJSON
+
