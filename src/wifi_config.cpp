@@ -1,5 +1,5 @@
-#include "wifi_config.h"
-#include "secrets.h"
+#include "wifi_config.hpp"
+#include "secrets.hpp"
 
 int retry_num=0;
 

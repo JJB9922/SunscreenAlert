@@ -1,7 +1,7 @@
-#ifndef FETCH_UV_INDEX_H
-#define FETCH_UV_INDEX_H
+#ifndef FETCH_UV_INDEX_HPP
+#define FETCH_UV_INDEX_HPP
 
-#include "secrets.h"
+#include "secrets.hpp"
 
 #include "esp_system.h"
 #include "esp_event.h"

@@ -1,5 +1,5 @@
-#ifndef WIFI_CONFIG_H
-#define WIFI_CONFIG_H
+#ifndef WIFI_CONFIG_HPP
+#define WIFI_CONFIG_HPP
 
 #include <stdio.h>
 #include <string.h>

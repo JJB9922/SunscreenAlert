@@ -1,4 +1,4 @@
-#include "fetch_uv_index.h"
+#include "fetch_uv_index.hpp"
 #include "cJSON.h"
 
 #define MAX_RESPONSE_SIZE 4096

@@ -1,5 +1,5 @@
-#include "wifi_config.h"
-#include "fetch_uv_index.h"
+#include "wifi_config.hpp"
+#include "fetch_uv_index.hpp"
 
 #include "esp_system.h"
 #include "nvs_flash.h"
